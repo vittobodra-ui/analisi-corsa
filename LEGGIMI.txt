@@ -1,0 +1,27 @@
+ANALISI CORSA PER ANDROID
+
+Il telefono permette la fotocamera solo da un indirizzo https, quindi l'app va messa online una volta.
+Con GitHub Pages e' gratis. Viene pubblicato solo il programma: video e dati restano sul telefono.
+
+PUBBLICAZIONE (una sola volta, dal computer)
+1. Crea un account su github.com, se non lo hai.
+2. Crea un nuovo repository pubblico, ad esempio "analisi-corsa".
+3. Scegli "uploading an existing file" e trascina tutti i file di questa cartella.
+   Vanno caricati i file, non la cartella. Conferma con "Commit changes".
+4. Apri Settings, poi Pages. In "Branch" scegli main e /(root), poi Save.
+5. Dopo un minuto circa l'indirizzo sara': https://TUONOME.github.io/analisi-corsa/
+
+SUL TELEFONO
+1. Apri quell'indirizzo con Chrome.
+2. Dal menu di Chrome scegli "Aggiungi a schermata Home" oppure "Installa app".
+3. Apri l'app, entra in una ripresa e consenti la fotocamera.
+   La prima volta serve Internet per scaricare il riconoscimento della posa, poi resta nel telefono.
+
+PROVA RAPIDA
+Nella schermata di ripresa premi "Simula" per vedere il flusso con un corridore virtuale.
+
+BACKUP
+Le analisi restano nel browser del telefono. Se disinstalli l'app o cancelli i dati di Chrome puoi perderle.
+Usa Archivio, "Esporta in un file". Il file si importa anche nel programma per PC.
+
+Le misure sono stime da video 2D, non misure di laboratorio e non una diagnosi.

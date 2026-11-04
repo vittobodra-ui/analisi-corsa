@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Analisi Corsa</title>
+<meta name="theme-color" content="#0d1b2b">
+<meta name="description" content="Analisi della corsa dal telefono, una vista alla volta">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="top no-print">
+  <a class="brand" href="#home">Analisi Corsa</a>
+  <nav aria-label="Sezioni"><a href="#home" data-nav="home">Analisi</a><a href="#archivio" data-nav="archivio">Archivio</a><a href="#guida" data-nav="guida">Guida</a></nav>
+  <p id="status" role="status"></p>
+</header>
+
+<main id="home" class="page home">
+  <h1>Riprendi le tre viste, una alla volta</h1>
+  <p class="fine">Puoi fare anche una sola vista. Ogni passaggio viene salvato subito.</p>
+  <form id="form" class="fields" autocomplete="off">
+    <label class="wide">Persona <input id="person" list="people" placeholder="Nome e cognome"><datalist id="people"></datalist></label>
+    <label>km/h <input id="speed" type="number" step="0.1" min="0" inputmode="decimal"></label>
+    <label>Pendenza % <input id="incline" type="number" step="0.5" inputmode="decimal"></label>
+    <label class="wide">Scarpe <input id="shoes"></label>
+    <label class="wide">Note <input id="notes"></label>
+  </form>
+  <div class="passes" id="passes"></div>
+  <div class="actions">
+    <button id="finish" class="primary" disabled>Crea il referto</button>
+    <button id="restart" class="quiet" hidden>Inizia una nuova analisi</button>
+  </div>
+  <details class="settings">
+    <summary>Impostazioni</summary>
+    <div class="fields">
+      <label>Conto alla rovescia <select id="s_count"><option value="0">Nessuno</option><option value="5">5 secondi</option><option value="10" selected>10 secondi</option><option value="20">20 secondi</option></select></label>
+      <label>Durata passaggio <select id="s_dur"><option value="0">Termino io</option><option value="30">30 secondi</option><option value="60" selected>60 secondi</option><option value="120">2 minuti</option></select></label>
+      <label>Riconoscimento <select id="s_model"><option value="lite" selected>Veloce</option><option value="full">Preciso, scalda di più</option></select></label>
+      <label>Metronomo, passi/min <input id="s_metro" type="number" value="170" inputmode="numeric"></label>
+      <label class="wide">Riproduzione file video <select id="s_rate"><option value="1">Velocità normale</option><option value="0.5">Metà velocità</option><option value="0.25">Un quarto, per slow motion</option></select></label>
+    </div>
+  </details>
+  <div class="install" id="installBox" hidden>
+    <p>Aggiungi Analisi Corsa alla schermata Home per aprirla come un’app.</p>
+    <button id="install">Installa l’app</button>
+  </div>
+</main>
+
+<main id="archivio" class="page" hidden></main>
+<main id="report" class="page" hidden></main>
+
+<main id="guida" class="page guide" hidden>
+  <h1>Come riprendere</h1>
+  <ol>
+    <li>Metti il telefono su un treppiede a circa 3 metri, in bolla, con l’obiettivo all’altezza dell’anca o poco sotto.</li>
+    <li>Inquadra tutto il corpo, con margine sopra la testa e sotto i piedi. In verticale di solito entra meglio.</li>
+    <li>Per la vista laterale tieni il telefono perpendicolare al nastro, centrato sul punto in cui la persona corre.</li>
+    <li>Nelle viste frontale e posteriore premi “Calibra” con la persona ferma in piedi, 3 secondi. Va rifatto a ogni vista, perché il telefono si sposta.</li>
+    <li>Fai correre la persona finché è a regime, poi avvia il passaggio con il conto alla rovescia. Mantieni la stessa velocità in tutti i passaggi.</li>
+    <li>Non ruotare il telefono durante un passaggio.</li>
+  </ol>
+  <h2>Per risultati migliori</h2>
+  <ul>
+    <li>Luce uniforme, abiti aderenti, nessun’altra persona nell’inquadratura.</li>
+    <li>Telefono in carica e fuori dal sole: il riconoscimento scalda e, se il telefono si surriscalda, i fotogrammi analizzati calano.</li>
+    <li>Modalità Non disturbare: una telefonata o il passaggio a un’altra app interrompe la ripresa.</li>
+    <li>Se la cifra dei fps è bassa, usa il riconoscimento “Veloce” o analizza un video già registrato.</li>
+  </ul>
+  <h2>Tempo di contatto più affidabile</h2>
+  <p>Registra con la fotocamera del telefono in slow motion, poi scegli “File video” nella schermata di ripresa e imposta la riproduzione a un quarto. Il video deve aprirsi nel browser: se non si apre, registralo in H.264 anziché HEVC.</p>
+  <h2>Quanto fidarsi delle misure</h2>
+  <ul>
+    <li><b>Più affidabili:</b> cadenza e tempo del passo.</li>
+    <li><b>Buone per confrontare le sessioni:</b> tallone avanti al bacino, angoli di ginocchio e tibia, tronco, oscillazione, caduta del bacino, valgo, larghezza del passo.</li>
+    <li><b>Da leggere con cautela:</b> tempi di contatto e volo. A 30 fps ogni istante ha almeno ±33 ms di tolleranza, a 60 fps ±17 ms. Nei test su un corridore simulato il contatto risulta circa 20 ms più lungo del vero.</li>
+  </ul>
+  <p>I passaggi non avvengono nello stesso momento, quindi non confrontare un singolo passo tra le viste: il referto riporta i valori tipici di ogni vista.</p>
+  <p class="fine">I video vengono elaborati solo sul telefono e non vengono caricati da nessuna parte. Nel referto restano numeri e pochi fotogrammi di esempio: chiedi il consenso alla persona ripresa.</p>
+</main>
+
+<section id="shot" class="shot" hidden>
+  <div class="shot-head"><h1 id="shotTitle"></h1><button id="shotClose">Chiudi</button></div>
+  <div class="frame">
+    <video id="video" muted playsinline hidden></video><canvas id="overlay"></canvas>
+    <div class="hint" id="hint" role="status"></div>
+    <div class="count" id="count" hidden></div>
+    <div class="clocked" id="clock" hidden></div>
+  </div>
+  <div class="live" id="liveBox"></div>
+  <div>
+    <div class="shot-tools" id="tools">
+      <select id="camera" aria-label="Fotocamera"></select>
+      <label class="btn">File video<input id="file" type="file" accept="video/*" hidden></label>
+      <button id="calib" hidden>Calibra</button>
+      <button id="metro" aria-pressed="false">Metronomo</button>
+      <button id="demo">Simula</button>
+    </div>
+    <div class="shot-main"><button id="go" class="go" disabled>Avvia il passaggio</button></div>
+  </div>
+</section>
+<script type="module" src="app.js"></script>
+</body>
+</html>
